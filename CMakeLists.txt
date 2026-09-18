@@ -15,7 +15,9 @@ add_executable(Pokemon src/main.cpp
         src/PokemonParty.cpp
         inc/PokemonParty.h
         src/PokemonAttack.cpp
-        inc/PokemonAttack.h)
+        inc/PokemonAttack.h
+        src/SelectionScreen.h
+        inc/SelectionScreen.cpp)
 
 find_package(SFML 2.6 COMPONENTS graphics window system audio REQUIRED)
 
