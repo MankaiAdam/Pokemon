@@ -5,9 +5,10 @@
 #include "PokemonParty.h"
 
 class PokemonAttack : public PokemonVector {
+
 public:
     PokemonAttack();
-
+    static const int MAX_POKEMONS = 6;
     void add(Pokemon* pokemon);
     void createFromParty(PokemonParty& party);
     void reintegrate(PokemonParty& party);

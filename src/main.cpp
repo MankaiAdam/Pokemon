@@ -4,10 +4,11 @@
 #include "Pokedex.h"
 #include "PokemonParty.h"
 #include "PokemonAttack.h"
+#include "../inc/SelectionScreen.h"
 
 int main() {
 
-    Pokedex& pokedex = Pokedex::getInstance();
+    /*Pokedex& pokedex = Pokedex::getInstance();
 
     std::cout << "*** test Pokedex ***" << std::endl;
 
@@ -62,6 +63,31 @@ int main() {
         window.draw(shape);
         window.display();
     }
+
+    return 0;*/
+
+    sf::RenderWindow window(sf::VideoMode(1100, 800),"Pokemon - Selection",sf::Style::Fullscreen);
+
+    Pokedex& pokedex = Pokedex::getInstance();
+
+    std::vector<Pokemon*> pokemons;
+
+    for (int i = 1; i <= 30; i++)
+    {
+        Pokemon* pokemon = pokedex.clonePokemon(i);
+        pokemon->displayInfo();
+        pokemons.push_back(pokemon);
+    }
+
+    /*
+    for (int i = 1; i <= 30; i++)
+    {
+        pokemons[i]->displayInfo();
+    }*/
+
+    SelectionScreen selection(window, pokemons);
+
+    selection.run();
 
     return 0;
 }

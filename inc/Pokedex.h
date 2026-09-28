@@ -10,9 +10,13 @@ private:
 
     Pokedex();
 public:
+    Pokedex(const Pokedex&) = delete;
+    Pokedex& operator=(const Pokedex&) = delete;
+
     static Pokedex& getInstance();
 
-    Pokemon cloneByName(const std::string &name) const;
+    Pokemon* clonePokemon(const std::string &name) const;
+    Pokemon* clonePokemon(int id) const;
 };
 
 #endif // POKEDEX_H

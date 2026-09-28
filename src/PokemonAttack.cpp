@@ -6,13 +6,13 @@ PokemonAttack::PokemonAttack() {
 }
 
 void PokemonAttack::add(Pokemon* pokemon) {
-    if (pokemons.size() < 6) {
+    if (pokemons.size() < MAX_POKEMONS) {
         pokemons.push_back(pokemon);
     }
 }
 
 void PokemonAttack::createFromParty(PokemonParty& party) {
-    while (pokemons.size() < 6) {
+    while (pokemons.size() < MAX_POKEMONS) {
         std::string Name;
         std::cout << "Enter the Name of a Pokemon to add to your attack team: ";
         std::cin >> Name;

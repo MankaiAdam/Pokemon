@@ -7,6 +7,7 @@
 class PokemonVector {
 protected:
     std::vector<Pokemon*> pokemons;
+    Pokemon* findById(int id) const;
     Pokemon* findByName(const std::string& name) const;
 public:
     PokemonVector() = default;

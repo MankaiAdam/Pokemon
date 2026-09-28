@@ -1,7 +1,7 @@
 #include "Pokedex.h"
 
-#include <fstream>
 #include <iostream>
+#include <fstream>
 #include <sstream>
 #include <vector>
 
@@ -36,6 +36,8 @@ Pokedex::Pokedex() {
         int id = std::stoi(lineData.at(0));
         std::string name = lineData.at(1);
 
+        std::string type1 = lineData.at(2);
+        std::string type2 = lineData.at(3);
         double maxHp = std::stod(lineData.at(5));
         double hp = maxHp;
 
@@ -48,6 +50,8 @@ Pokedex::Pokedex() {
             new Pokemon(
                 id,
                 name,
+                type1,
+                type2,
                 maxHp,
                 hp,
                 attackValue,
@@ -66,12 +70,17 @@ Pokedex& Pokedex::getInstance() {
     return *instance;
 }
 
-Pokemon Pokedex::cloneByName(const std::string& name) const {
+Pokemon* Pokedex::clonePokemon(const std::string& name) const {
     Pokemon* found = findByName(name);
-    if (found == nullptr) {
-        throw std::out_of_range("Pokemon ID not found");
-    }
+    if (found == nullptr)
+        throw std::out_of_range("Pokemon not found");
 
-    Pokemon clone(*found);
-    return clone;
+    return new Pokemon(*found);
+}
+Pokemon* Pokedex::clonePokemon(const int id) const {
+    Pokemon* found = findById(id);
+    if (found == nullptr)
+        throw std::out_of_range("Pokemon not found");
+
+    return new Pokemon(*found);
 }

@@ -6,6 +6,16 @@ PokemonVector::~PokemonVector() {
     }
 }
 
+Pokemon* PokemonVector::findById(const int id) const {
+    for (Pokemon* pokemon : pokemons) {
+        if (pokemon->getId() == id) {
+            return pokemon;
+        }
+    }
+
+    return nullptr;
+}
+
 Pokemon* PokemonVector::findByName(const std::string& name) const {
     for (Pokemon* pokemon : pokemons) {
         if (pokemon->getName() == name) {
