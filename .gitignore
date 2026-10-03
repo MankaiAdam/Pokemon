@@ -1,3 +1,10 @@
-cmake-build-*/
 .idea/
 vcpkg_installed/
+
+build/
+cmake-build-*/
+
+CMakeFiles/
+cmake_install.cmake
+CMakeCache.txt
+Makefile
