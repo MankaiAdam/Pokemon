@@ -5,10 +5,12 @@
 #include <unordered_map>
 #include <SFML/Graphics.hpp>
 #include <vector>
+
+#include "GameState.h"
 #include "Pokemon.h"
 #include "PokemonAttack.h"
 
-class SelectionScreen {
+class SelectionScreen : public GameState{
 private:
     const int MAX_POKEMONS = PokemonAttack::MAX_POKEMONS;
     const std::vector<std::string> POKEMONS_TYPES = Pokemon::POKEMONS_TYPES;
@@ -55,8 +57,7 @@ private:
 
 
 public:
-    SelectionScreen(sf::RenderWindow& window,
-                    const std::vector<Pokemon*>& pokemons);
+    SelectionScreen(GameStateMachine* gameStateMachine, sf::RenderWindow& window);
 
     bool run();
 

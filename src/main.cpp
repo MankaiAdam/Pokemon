@@ -1,10 +1,13 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
+
+#include "GameStateMachine.h"
 #include "Pokemon.h"
 #include "Pokedex.h"
 #include "PokemonParty.h"
 #include "PokemonAttack.h"
-#include "../inc/SelectionScreen.h"
+#include "SelectionScreen.h"
+#include "MenuScreen.h"
 
 int main() {
 
@@ -66,18 +69,8 @@ int main() {
 
     return 0;*/
 
-    sf::RenderWindow window(sf::VideoMode(1100, 800),"Pokemon - Selection",sf::Style::Fullscreen);
 
-    Pokedex& pokedex = Pokedex::getInstance();
-
-    std::vector<Pokemon*> pokemons;
-
-    for (int i = 1; i <= 30; i++)
-    {
-        Pokemon* pokemon = pokedex.clonePokemon(i);
-        pokemon->displayInfo();
-        pokemons.push_back(pokemon);
-    }
+    sf::RenderWindow window(sf::VideoMode(1100, 800),"Pokemon The Game",sf::Style::Fullscreen);
 
     /*
     for (int i = 1; i <= 30; i++)
@@ -85,9 +78,16 @@ int main() {
         pokemons[i]->displayInfo();
     }*/
 
-    SelectionScreen selection(window, pokemons);
+    //SelectionScreen selection(window, pokemons);
+    //selection.run();
 
-    selection.run();
+
+    GameStateMachine gameStateMachine(window);
+
+    //MenuScreen mainMenu(gameStateMachine, window);
+    //mainMenu.run();
+
+    gameStateMachine.run();
 
     return 0;
 }

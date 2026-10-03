@@ -1,11 +1,20 @@
-#include "../inc/SelectionScreen.h"
+#include "SelectionScreen.h"
 #include <iostream>
 #include <sstream>
 
-SelectionScreen::SelectionScreen(sf::RenderWindow& window,
-                                 const std::vector<Pokemon*>& pokemons)
-    : window(window), pokemons(pokemons)
+#include "Pokedex.h"
+
+SelectionScreen::SelectionScreen(GameStateMachine* gameStateMachine, sf::RenderWindow& window)
+    :GameState(gameStateMachine), window(window)
 {
+    Pokedex& pokedex = Pokedex::getInstance();
+
+    for (int i = 1; i <= 30; i++)
+    {
+        Pokemon* pokemon = pokedex.clonePokemon(i);
+        pokemon->displayInfo();
+        pokemons.push_back(pokemon);
+    }
     loadSprites();
     setupTexts();
 }
