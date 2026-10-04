@@ -23,23 +23,36 @@ Le jeu utilise un Pokédex chargé depuis un fichier CSV et une interface graphi
 ```text
 Pokemon/
 ├── data/
+│   ├── Images
+│   ├── fonts
 │   └── pokedex.csv
 ├── inc/
-│   ├── Pokemon.h
-│   ├── PokemonVector.h
-│   ├── Pokedex.h
-│   ├── PokemonParty.h
-│   └── PokemonAttack.h
+│   └── *.h
 ├── src/
-│   ├── Pokemon.cpp
-│   ├── PokemonVector.cpp
-│   ├── Pokedex.cpp
-│   ├── PokemonParty.cpp
-│   └── PokemonAttack.cpp
-├── main.cpp
+│   ├── *.cpp
+│   └── main.cpp
 ├── CMakeLists.txt
-└── vcpkg.json
 ```
+
+## 🔄 Diagramme des états
+
+```mermaid
+stateDiagram-v2
+    Ecran_d'accueil
+
+    Ecran_d'accueil --> Exploration : Appui sur une touche
+
+    Exploration --> Rencouter_pokemon : Rencontre aléatoire
+    Exploration --> Selection : Rencontre aléatoire
+
+    Rencouter_pokemon --> Exploration : Capture / Fuite
+
+    Selection --> Combat_Arene : Équipe confirmée
+
+    Combat_Arene --> Exploration : Victoire : Vol Pokemon
+    
+    Combat_Arene --> Game_Over : Echec
+   ```
 
 ## 🚀 Installation
 
