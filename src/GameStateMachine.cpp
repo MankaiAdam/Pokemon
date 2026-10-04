@@ -5,12 +5,12 @@
 
 GameStateMachine::GameStateMachine(sf::RenderWindow& window, PokemonParty* playerParty) : playerParty(playerParty)
 {
-    game_state = new MenuScreen(this, window, playerParty);
+    game_state = std::make_unique<MenuScreen>(this, window, playerParty);
 }
 
-void GameStateMachine::setGameState(GameState* gameState)
+void GameStateMachine::setGameState(std::unique_ptr<GameState> gameState)
 {
-    game_state = gameState;
+    game_state = std::move(gameState);
 }
 
 void GameStateMachine::run()

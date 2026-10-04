@@ -90,7 +90,7 @@ void MenuScreen::setupTexts()
 
 void MenuScreen::handleClick()
 {
-    gameStateMachine->setGameState(new ExplorationScreen(gameStateMachine, window, playerParty));
+    gameStateMachine->setGameState(std::make_unique<ExplorationScreen>(gameStateMachine, window, playerParty));
 }
 
 void MenuScreen::draw()

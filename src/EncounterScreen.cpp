@@ -323,7 +323,7 @@ void EncounterScreen::handleClick(
         sf::sleep(sf::seconds(2));
 
         gameStateMachine->setGameState(
-            new ExplorationScreen(
+            std::make_unique<ExplorationScreen>(
                 gameStateMachine,
                 window,
                 playerParty

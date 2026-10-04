@@ -8,6 +8,7 @@
 #include "ExplorationScreen.h"
 #include "GameOverScreen.h"
 #include "GameStateMachine.h"
+#include "Pokedex.h"
 
 ArenaScreen::ArenaScreen(
     GameStateMachine* gameStateMachine,
@@ -382,8 +383,7 @@ void ArenaScreen::updateCurrentPokemonSprites()
         float y,
         bool flip
     ) {
-        if (index < 0 || index >= static_cast<int>(pokemons.size()) ||
-            pokemons[index] == nullptr)
+        if (index < 0 || index >= pokemons.size() || pokemons[index] == nullptr)
         {
             return;
         }
@@ -403,9 +403,7 @@ void ArenaScreen::updateCurrentPokemonSprites()
         sprite.setTexture(texture);
 
         const sf::Vector2u textureSize = texture.getSize();
-        const float maxSize = static_cast<float>(
-            std::max(textureSize.x, textureSize.y)
-        );
+        const float maxSize = std::max(textureSize.x, textureSize.y);
         const float scale = 180.0f / maxSize;
 
         sprite.setScale(flip ? -scale : scale, scale);
@@ -550,7 +548,7 @@ void ArenaScreen::attack()
             }
 
             gameStateMachine->setGameState(
-                new ExplorationScreen(
+                std::make_unique<ExplorationScreen>(
                     gameStateMachine,
                     window,
                     playerParty
@@ -604,7 +602,7 @@ void ArenaScreen::attack()
         if (playerPokemonIndex >=playerPokemons.size())
         {
             std::cout << "GAME OVER!" << std::endl;
-            gameStateMachine->setGameState(new GameOverScreen(gameStateMachine, window));
+            gameStateMachine->setGameState(std::make_unique<GameOverScreen>(gameStateMachine, window));
         }
 
         updateCurrentPokemonSprites();

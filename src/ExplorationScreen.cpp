@@ -183,7 +183,7 @@ void ExplorationScreen::handleClick(
                 pokedex.clonePokemon(randomId);
 
             gameStateMachine->setGameState(
-                new EncounterScreen(
+                std::make_unique<EncounterScreen>(
                     gameStateMachine,
                     window,
                     pokemon,
@@ -196,7 +196,7 @@ void ExplorationScreen::handleClick(
             // 40% chance: Arena
 
             gameStateMachine->setGameState(
-                new SelectionScreen(
+                std::make_unique<SelectionScreen>(
                     gameStateMachine,
                     window,
                     playerParty

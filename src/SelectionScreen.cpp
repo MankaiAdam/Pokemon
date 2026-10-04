@@ -332,7 +332,7 @@ void SelectionScreen::handleClick(sf::Vector2i mousePosition)
             PokemonAttack* attackTeam = new PokemonAttack();
             for (auto pokemon : selectedPokemons)
                 attackTeam->add(pokemon);
-            gameStateMachine->setGameState(new ArenaScreen(gameStateMachine, window, attackTeam, playerParty));
+            gameStateMachine->setGameState(std::make_unique<ArenaScreen>(gameStateMachine, window, attackTeam, playerParty));
         }
     }
 }
