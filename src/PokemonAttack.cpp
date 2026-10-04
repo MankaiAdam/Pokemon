@@ -11,6 +11,12 @@ void PokemonAttack::add(Pokemon* pokemon) {
     }
 }
 
+
+std::vector<Pokemon*> PokemonAttack::getPokemons()
+{
+    return pokemons;
+}
+
 void PokemonAttack::createFromParty(PokemonParty& party) {
     while (pokemons.size() < MAX_POKEMONS) {
         std::string Name;

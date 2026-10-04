@@ -2,11 +2,12 @@
 
 #include <iostream>
 
+#include "ExplorationScreen.h"
 #include "GameStateMachine.h"
 #include "SelectionScreen.h"
 
-MenuScreen::MenuScreen(GameStateMachine* gameStateMachine, sf::RenderWindow& window)
-    :GameState(gameStateMachine) ,window(window)
+MenuScreen::MenuScreen(GameStateMachine* gameStateMachine, sf::RenderWindow& window, PokemonParty* playerParty)
+    :GameState(gameStateMachine) ,window(window), playerParty(playerParty)
 {
     loadSprites();
     setupTexts();
@@ -78,7 +79,7 @@ void MenuScreen::setupTexts()
     }
 
     menu_text.setFont(PokemonFrlgFont);
-    menu_text.setString("Press any Key");
+    menu_text.setString("Appuyez sur une touche");
     menu_text.setCharacterSize(60);
     centerDrawable(&menu_text, window , true, true);
     menu_text.setFillColor(sf::Color::White);
@@ -89,8 +90,7 @@ void MenuScreen::setupTexts()
 
 void MenuScreen::handleClick()
 {
-    //menu_text.setColor(sf::Color::Black);
-    gameStateMachine->setGameState(new SelectionScreen(gameStateMachine, window));
+    gameStateMachine->setGameState(new ExplorationScreen(gameStateMachine, window, playerParty));
 }
 
 void MenuScreen::draw()

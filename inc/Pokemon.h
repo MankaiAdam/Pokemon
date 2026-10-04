@@ -40,6 +40,8 @@ public:
 
     double getHp() const;
 
+    void setHp(double hp);
+
     void sustainDamage(double value);
 
     double getAttack() const;

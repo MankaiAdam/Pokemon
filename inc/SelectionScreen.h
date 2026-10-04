@@ -16,6 +16,7 @@ private:
     const std::vector<std::string> POKEMONS_TYPES = Pokemon::POKEMONS_TYPES;
 
     sf::RenderWindow& window;
+    PokemonParty* playerParty;
 
     std::vector<Pokemon*> pokemons;
     std::vector<Pokemon*> selectedPokemons;
@@ -57,7 +58,7 @@ private:
 
 
 public:
-    SelectionScreen(GameStateMachine* gameStateMachine, sf::RenderWindow& window);
+    SelectionScreen(GameStateMachine* gameStateMachine, sf::RenderWindow& window, PokemonParty* playerParty);
 
     bool run();
 

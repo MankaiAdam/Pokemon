@@ -1,10 +1,11 @@
 #include "GameStateMachine.h"
 
 #include "MenuScreen.h"
+#include "../inc/ExplorationScreen.h"
 
-GameStateMachine::GameStateMachine(sf::RenderWindow& window)
+GameStateMachine::GameStateMachine(sf::RenderWindow& window, PokemonParty* playerParty) : playerParty(playerParty)
 {
-    game_state = new MenuScreen(this, window);
+    game_state = new MenuScreen(this, window, playerParty);
 }
 
 void GameStateMachine::setGameState(GameState* gameState)

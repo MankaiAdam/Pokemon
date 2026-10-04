@@ -4,10 +4,13 @@
 #include <SFML/Graphics.hpp>
 
 #include "GameState.h"
+#include "PokemonParty.h"
 
 class MenuScreen : public GameState
 {
     sf::RenderWindow& window;
+    PokemonParty* playerParty;
+
     sf::Texture bg_texture;
     sf::Sprite bg_sprite;
     sf::Text menu_text;
@@ -18,7 +21,7 @@ class MenuScreen : public GameState
     int bgHeight;
 
 public:
-    MenuScreen(GameStateMachine* gameStateMachine,sf::RenderWindow& w);
+    MenuScreen(GameStateMachine* gameStateMachine,sf::RenderWindow& w, PokemonParty* playerParty);
 
     bool run();
 

@@ -23,7 +23,15 @@ add_executable(Pokemon src/main.cpp
         src/GameStateMachine.cpp
         inc/GameStateMachine.h
         src/GameState.cpp
-        inc/GameState.h)
+        inc/GameState.h
+        src/ExplorationScreen.cpp
+        inc/ExplorationScreen.h
+        src/EncounterScreen.cpp
+        inc/EncounterScreen.h
+        src/ArenaScreen.cpp
+        inc/ArenaScreen.h
+        inc/GameOverScreen.cpp
+        inc/GameOverScreen.h)
 
 find_package(SFML 2.6 COMPONENTS graphics window system audio REQUIRED)
 

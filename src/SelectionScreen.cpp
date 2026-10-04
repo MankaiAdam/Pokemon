@@ -1,12 +1,14 @@
 #include "SelectionScreen.h"
 #include <iostream>
-#include <sstream>
 
-#include "Pokedex.h"
+#include "GameStateMachine.h"
+#include "MenuScreen.h"
+#include "../inc/ArenaScreen.h"
 
-SelectionScreen::SelectionScreen(GameStateMachine* gameStateMachine, sf::RenderWindow& window)
-    :GameState(gameStateMachine), window(window)
+SelectionScreen::SelectionScreen(GameStateMachine* gameStateMachine, sf::RenderWindow& window, PokemonParty* playerParty)
+    :GameState(gameStateMachine), window(window), playerParty(playerParty)
 {
+    /*
     Pokedex& pokedex = Pokedex::getInstance();
 
     for (int i = 1; i <= 30; i++)
@@ -15,6 +17,12 @@ SelectionScreen::SelectionScreen(GameStateMachine* gameStateMachine, sf::RenderW
         pokemon->displayInfo();
         pokemons.push_back(pokemon);
     }
+     */
+    if (playerParty != nullptr)
+    {
+        pokemons = playerParty->getPokemons();
+    }
+
     loadSprites();
     setupTexts();
 }
@@ -227,7 +235,6 @@ void SelectionScreen::setupTexts()
     PokemonEvolutionText.setFillColor(sf::Color::Black);
     PokemonEvolutionText.setPosition(x, y + 380);
 
-    //confirmButton.setSize(sf::Vector2f(180, 50));
     confirmButton.setPosition(1300, 900);
 
     confirmText.setFont(PokemonFrlgFont);
@@ -288,7 +295,7 @@ void SelectionScreen::handleClick(sf::Vector2i mousePosition)
         {
             Pokemon* pokemon = pokemons[i];
 
-            // Si déjà sélectionné → retirer
+            // Si déjà sélectionné > retirer
             if (isSelected(pokemon))
             {
                 for (auto it = selectedPokemons.begin();
@@ -303,7 +310,7 @@ void SelectionScreen::handleClick(sf::Vector2i mousePosition)
                 }
                 updateSelectedUI();
             }
-            // Sinon → ajouter si moins de 6
+            // Sinon > ajouter si moins de 6
             else if (selectedPokemons.size() < 6)
             {
                 selectedPokemons.push_back(pokemon);
@@ -320,19 +327,18 @@ void SelectionScreen::handleClick(sf::Vector2i mousePosition)
         static_cast<float>(mousePosition.x),
         static_cast<float>(mousePosition.y)))
     {
-        if (selectedPokemons.size() == 6)
+        if (selectedPokemons.size() > 0)
         {
-            // Pour l'instant on ferme simplement l'écran.
-            // On connectera cela à PokemonAttack ensuite.
-            window.close();
+            PokemonAttack* attackTeam = new PokemonAttack();
+            for (auto pokemon : selectedPokemons)
+                attackTeam->add(pokemon);
+            gameStateMachine->setGameState(new ArenaScreen(gameStateMachine, window, attackTeam, playerParty));
         }
     }
 }
 
 void SelectionScreen::handleMove(sf::Vector2i mousePosition)
 {
-
-    //std::cout << "mouse moved : "<< mousePosition.x << " - " << mousePosition.y << std::endl;
     // Vérifier si on a survolé  sur un Pokémon
     for (size_t i = 0; i < pokemonSprites.size(); i++)
     {
@@ -349,14 +355,12 @@ void SelectionScreen::handleMove(sf::Vector2i mousePosition)
             spriteSize
         );
 
-        if (box.contains(
-            static_cast<float>(mousePosition.x),
-            static_cast<float>(mousePosition.y))) {
+        if (box.contains(mousePosition.x,mousePosition.y)) {
             Pokemon* pokemon = pokemons[i];
             PokemonNameText.setString(pokemon->getName());
-            PokemonHPText.setString("HitPoints : " + std::to_string(pokemon->getMaxHp()));
-            PokemonAttackText.setString("Attack : " +std::to_string(pokemon->getAttack()));
-            PokemonDefenseText.setString("Defense : " +std::to_string(pokemon->getDefense()));
+            PokemonHPText.setString("HitPoints : " + std::to_string((int)pokemon->getMaxHp()));
+            PokemonAttackText.setString("Attaque : " +std::to_string((int)pokemon->getAttack()));
+            PokemonDefenseText.setString("Defense : " +std::to_string((int)pokemon->getDefense()));
             PokemonEvolutionText.setString("Evolution : " +std::to_string(pokemon->getEvolution()));
 
             std::string type1 = pokemon->getType1();
@@ -391,13 +395,6 @@ void SelectionScreen::handleMove(sf::Vector2i mousePosition)
             return;
         }else {
         }
-    }
-
-    if (confirmButton.getGlobalBounds().contains(
-        static_cast<float>(mousePosition.x),
-        static_cast<float>(mousePosition.y)))
-    {
-
     }
 }
 
@@ -455,7 +452,7 @@ void SelectionScreen::draw()
     }
 
     // Bouton confirmer
-    if (selectedPokemons.size() == 6)
+    if (selectedPokemons.size() > 0)
     {
         confirmButton.setColor(sf::Color(255, 255, 255, 255));
         confirmText.setFillColor(sf::Color(255, 255, 255, 255));
@@ -498,6 +495,7 @@ bool SelectionScreen::run()
                         event.mouseButton.y
                     )
                 );
+                return true;
             }
             if (event.type == sf::Event::MouseMoved)
             {

@@ -46,6 +46,10 @@ double Pokemon::getHp() const {
     return hp;
 }
 
+void Pokemon::setHp(double hp){
+    this->hp = hp;
+}
+
 void Pokemon::sustainDamage(const double value) {
     hp = std::max(hp - value,0.0);
     if (hp <= 0) std::cout<<name<<" est decede"<<std::endl;

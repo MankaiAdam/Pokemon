@@ -10,6 +10,7 @@ public:
     PokemonAttack();
     static const int MAX_POKEMONS = 6;
     void add(Pokemon* pokemon);
+    std::vector<Pokemon*> getPokemons();
     void createFromParty(PokemonParty& party);
     void reintegrate(PokemonParty& party);
 };

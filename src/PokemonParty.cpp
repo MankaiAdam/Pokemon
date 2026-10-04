@@ -11,6 +11,10 @@ void PokemonParty::add(Pokemon* pokemon) {
     this->pokemons.push_back(pokemon);
 }
 
+std::vector<Pokemon*> PokemonParty::getPokemons() const {
+    return pokemons;
+}
+
 Pokemon* PokemonParty::extractByName(const std::string& name) {
     for (int i = 0; i < pokemons.size(); i++) {
         if (pokemons[i]->getName() == name) {
