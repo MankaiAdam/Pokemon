@@ -131,6 +131,14 @@ cd Pokemon
 
 Ouvrir ensuite le projet avec **CLion** et laisser CMake configurer et compiler le projet.
 
+
+Dans la configuration d'exécution de CLion, définir le **Working Directory** sur le dossier `src` :
+
+```text
+$ProjectFileDir$/src
+```
+
+
 Le fichier `data/pokedex.csv` doit être présent pour permettre le chargement du Pokédex.
 
 ## 👨‍💻 Auteur
