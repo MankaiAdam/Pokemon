@@ -54,6 +54,72 @@ stateDiagram-v2
     Combat_Arene --> Game_Over : Echec
    ```
 
+## 📊 Diagramme de classes
+
+```mermaid
+classDiagram
+
+    class Pokemon {
+        -int id
+        -string name
+        -string type1
+        -string type2
+        -double max_hp
+        -double hp
+        -double attack
+        -double defense
+        -int evolution
+        +getId() int
+        +getName() string
+        +getType1() string
+        +getType2() string
+        +getMaxHp() double
+        +getHp() double
+        +setHp(double) void
+        +getAttack() double
+        +getDefense() double
+        +getEvolution() int
+        +sustainDamage(double) void
+        +attackPokemon(Pokemon&) void
+    }
+
+    class PokemonVector {
+        #vector~Pokemon*~ pokemons
+        #findById(int) Pokemon*
+        #findByName(string) Pokemon*
+        +getSize() int
+    }
+
+    class Pokedex {
+        -Pokedex* instance
+        +getInstance() Pokedex&
+        +clonePokemon(int) Pokemon*
+        +clonePokemon(string) Pokemon*
+    }
+
+    class PokemonParty {
+        +add(Pokemon*) void
+        +getPokemons() vector~Pokemon*~
+        +extractByName(string) Pokemon*
+        +findByName(string) Pokemon*
+    }
+
+    class PokemonAttack {
+        +add(Pokemon*) void
+        +getPokemons() vector~Pokemon*~
+        +createFromParty(PokemonParty&) void
+        +reintegrate(PokemonParty&) void
+    }
+
+    PokemonVector <|-- PokemonParty
+    PokemonVector <|-- PokemonAttack
+
+    Pokedex --> Pokemon : crée des clones
+    PokemonVector o-- Pokemon : contient
+    PokemonParty --> Pokemon : gère
+    PokemonAttack --> Pokemon : utilise
+```
+
 ## 🚀 Installation
 
 Cloner le projet :
